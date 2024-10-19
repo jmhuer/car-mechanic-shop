@@ -1,3 +1,6 @@
+// import partials ---
+@use "./variables" as v;
+
 .ag-courses_item {
   overflow: hidden;
   position: relative;
@@ -33,19 +36,24 @@
   border-radius: 50%;
   transition: v.$transition;
 }
-.glide-deals li.glide__slide:nth-child(2n) > .ag-courses_item > .ag-courses-item_bg {
+
+.glide-deals li.glide__slide:nth-child(2n)>.ag-courses_item>.ag-courses-item_bg {
   background-color: #3ecd5e;
 }
-.glide-deals li.glide__slide:nth-child(3n) > .ag-courses_item > .ag-courses-item_bg {
+
+.glide-deals li.glide__slide:nth-child(3n)>.ag-courses_item>.ag-courses-item_bg {
   background-color: #e44002;
 }
-.glide-deals li.glide__slide:nth-child(4n) > .ag-courses_item > .ag-courses-item_bg {
+
+.glide-deals li.glide__slide:nth-child(4n)>.ag-courses_item>.ag-courses-item_bg {
   background-color: #952aff;
 }
-.glide-deals li.glide__slide:nth-child(5n) > .ag-courses_item > .ag-courses-item_bg {
+
+.glide-deals li.glide__slide:nth-child(5n)>.ag-courses_item>.ag-courses-item_bg {
   background-color: #cd3e94;
 }
-.glide-deals li.glide__slide:nth-child(6n) > .ag-courses_item > .ag-courses-item_bg {
+
+.glide-deals li.glide__slide:nth-child(6n)>.ag-courses_item>.ag-courses-item_bg {
   background-color: #4c49ea;
 }
 

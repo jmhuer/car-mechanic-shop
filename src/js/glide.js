@@ -1,9 +1,16 @@
-// Glide.js
+/**
+ * @file glide.js
+ * @description This file initializes and configures Glide.js carousels for the "deals" and "services" sections of the webpage.
+ */
+
+// Import Glide.js CSS files
 import "@glidejs/glide/dist/css/glide.core.min.css";
 import "@glidejs/glide/dist/css/glide.theme.min.css";
 
+// Import Glide.js library
 import Glide from "@glidejs/glide";
 
+// Initialize and configure the Glide.js carousel for the "deals" section
 new Glide(".glide-deals", {
   type: "carousel",
   perView: 3,
@@ -18,6 +25,7 @@ new Glide(".glide-deals", {
   },
 }).mount();
 
+// Initialize and configure the Glide.js carousel for the "services" section
 new Glide(".glide-services", {
   type: "carousel",
   perView: 3,
@@ -35,6 +43,7 @@ new Glide(".glide-services", {
   },
 }).mount();
 
+// Initialize and configure the Glide.js carousel for the "reviews" section
 new Glide(".glide-reviews", {
   type: "carousel",
   perView: 3,

@@ -1,4 +1,16 @@
+/**
+ * @file deals.js
+ * @description This file sets up the alert boxes and deals slides for the webpage,
+ *  generating HTML content dynamically based on predefined data.
+ */
+
 // Setup Alert Boxes
+
+/**
+ * @constant {Array<Object>} alertBoxesData
+ * @description An array of objects representing the data for each alert box.
+ * @property {string} body - The message to be displayed in the alert box.
+ */
 const alertBoxesData = [
   {
     body: `We are Open 7 days a week.`,
@@ -10,20 +22,40 @@ const alertBoxesData = [
     body: `Special Discounts for Veterans & Military Personel, Students, and Senior Citizens.`,
   },
 ];
-const alertBoxHtml = alertBoxesData.map((bx) => {
-  const body = bx.body ? bx.body : ``
-  return `<li>${body}</li>`
-});
-const alertBoxesElement = document.querySelector("#alert-boxes .card-body")
-if (alertBoxesElement) alertBoxesElement.innerHTML = alertBoxHtml.join("")
 
+/**
+ * @function generateAlertBoxHtml
+ * @description Generates HTML for each alert box based on the alertBoxesData array.
+ * @param {Array<Object>} boxesData - The array of alert box data.
+ * @returns {Array<string>} An array of HTML strings for each alert box.
+ */
+const generateAlertBoxHtml = (boxesData) => {
+  return boxesData.map((bx) => {
+    const body = bx.body ? bx.body : ``; // Use the body if available, otherwise use an empty string
+    return `<li>${body}</li>`; // Wrap the body in a list item
+  });
+};
 
+/**
+ * @constant {HTMLElement} alertBoxesElement
+ * @description The DOM element where the alert boxes will be inserted.
+ */
+const alertBoxesElement = document.querySelector("#alert-boxes .card-body");
 
-
-
-
+/**
+ * @description If the alertBoxesElement exists, set its innerHTML to the generated alert boxes HTML.
+ */
+if (alertBoxesElement) alertBoxesElement.innerHTML = generateAlertBoxHtml(alertBoxesData).join("");
 
 // Setup Deals Slides
+
+/**
+ * @constant {Array<Object>} dealsSlidesData
+ * @description An array of objects representing the data for each deal slide.
+ * @property {string} icon - The HTML string for the deal icon.
+ * @property {string} title - The title of the deal.
+ * @property {string} body - The description of the deal.
+ */
 const dealsSlidesData = [
   {
     icon: `<i class="icon bx bx-wind display-6"></i>`,
@@ -76,19 +108,37 @@ const dealsSlidesData = [
     body: `Comprehensive vehicle inspection for FREE with any service! Limited time offer. Visit us today!`,
   },
 ];
-const dealsSlidesHtml = dealsSlidesData.map((sl) => {
-  const output =
-    `<li class="glide__slide h-auto">`+
-      `<div class="ag-courses_item h-100 bg-primary p-3 text-light rounded">`+
-        `<div class="ag-courses-item_bg"></div>`+
-        `<div class="ag-courses-item_title fs-5 fw-medium mb-2">`+
-          `<div>${sl.icon}</div>`+
-          `<div>${sl.title}</div>`+
-        `</div>`+
-        `<div class="ag-course-body">${sl.body}</div>`+
-      `</div>`+
-    `</li>`
-  return output
-});
-const dealsSlidesElement = document.getElementById("deals-slides")
-if (dealsSlidesElement) dealsSlidesElement.innerHTML = dealsSlidesHtml.join("")
+
+/**
+ * @function generateDealsSlidesHtml
+ * @description Generates HTML for each deal slide based on the dealsSlidesData array.
+ * @param {Array<Object>} slidesData - The array of deal slide data.
+ * @returns {Array<string>} An array of HTML strings for each deal slide.
+ */
+const generateDealsSlidesHtml = (slidesData) => {
+  return slidesData.map((sl) => {
+    const output =
+      `<li class="glide__slide h-auto">` +
+        `<div class="ag-courses_item h-100 bg-primary p-3 text-light rounded">` +
+          `<div class="ag-courses-item_bg"></div>` +
+          `<div class="ag-courses-item_title fs-5 fw-medium mb-2">` +
+            `<div>${sl.icon}</div>` +
+            `<div>${sl.title}</div>` +
+          `</div>` +
+          `<div class="ag-course-body">${sl.body}</div>` +
+        `</div>` +
+      `</li>`;
+    return output;
+  });
+};
+
+/**
+ * @constant {HTMLElement} dealsSlidesElement
+ * @description The DOM element where the deals slides will be inserted.
+ */
+const dealsSlidesElement = document.getElementById("deals-slides");
+
+/**
+ * @description If the dealsSlidesElement exists, set its innerHTML to the generated deals slides HTML.
+ */
+if (dealsSlidesElement) dealsSlidesElement.innerHTML = generateDealsSlidesHtml(dealsSlidesData).join("");

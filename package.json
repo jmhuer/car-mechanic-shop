@@ -16,17 +16,17 @@
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "autoprefixer": "^10.4.20",
-    "bootstrap": "^5.3.3",
+    "caniuse-lite": "^1.0.30001669",
     "cssnano": "^6.1.2",
     "postcss": "^8.4.47",
-    "sass": "^1.79.5",
-    "vite": "^5.4.8",
+    "sass": "^1.80.3",
+    "vite": "^5.4.9",
     "vite-plugin-minify": "^1.5.2",
     "vite-plugin-webfont-dl": "^3.9.5"
   },
   "dependencies": {
     "@glidejs/glide": "^3.6.2",
-    "boxicons": "^2.1.4",
-    "caniuse-lite": "^1.0.30001668"
+    "bootstrap": "^5.3.3",
+    "boxicons": "^2.1.4"
   }
 }

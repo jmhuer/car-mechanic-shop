@@ -1,3 +1,6 @@
+// import partials ---
+@use "./variables" as v;
+
 .testimonial .blockquote {
   font-size: .875rem;
 }
@@ -7,7 +10,7 @@
   color: #ffcc33;
 }
 
-.star-ratings > i {
+.star-ratings>i {
   text-shadow: v.$text-shadow;
 }
 

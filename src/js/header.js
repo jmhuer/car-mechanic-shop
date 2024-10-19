@@ -1,20 +1,34 @@
+/**
+ * @file header.js
+ * @description This file contains functions to for the header section of the page.
+ */
+
 // Navigation
 /* ## Set Mobile Navigation stuff
 --------------------------------------------- */
-// selecting the element
+
+// Selecting the element
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector("nav.nav-primary");
 
-// Functionality for main menu-toggle button
+/**
+ * Toggles the visibility of the site navigation and updates the menu button state.
+ *
+ * This function is triggered when the menu button is clicked. It performs the following actions:
+ * - Toggles the 'show' class on the navigation element to show/hide the navigation.
+ * - Toggles the 'activated' and 'bx-x' classes on the menu button to update its appearance.
+ * - Toggles the 'aria-expanded' attribute on the menu button to indicate whether the menu is expanded.
+ * - Toggles the 'aria-pressed' attribute on the menu button to indicate whether the button is pressed.
+ */
 menuButton.addEventListener("click", function () {
   // Show site navigation
   navigation.classList.toggle("show");
 
-  // toggle activated class
+  // Toggle activated class
   menuButton.classList.toggle("activated");
   menuButton.classList.toggle("bx-x");
 
-  // toggle attrs
+  // Toggle attrs
   if (menuButton.getAttribute("aria-expanded") === "true") {
     menuButton.setAttribute("aria-expanded", "false");
   } else {
@@ -26,21 +40,27 @@ menuButton.addEventListener("click", function () {
   } else {
     menuButton.setAttribute("aria-pressed", "true");
   }
-
-  // Show Main Navigation
 });
+
+
+/**
+ * Adds click event listeners to menu links to collapse the navigation menu.
+ *
+ * This functionality ensures that when any of the specified links are clicked, the main navigation
+ * menu is hidden and the menu button state is reset.
+ */
 
 // Collapse menu on click
 const menuLinks = document.querySelectorAll(
   ".primary-menu .menu-item a, a.top-link, .site-title a"
 );
-// Functionality of individual links
+
 menuLinks.forEach((eachLink) => {
   eachLink.addEventListener("click", function () {
     // Hide Main Navigation on click
     navigation.classList.remove("show");
 
-    // remove activated class and attrs from menu-toggle button
+    // Remove activated class and attributes from menu-toggle button
     menuButton.classList.remove("activated");
     menuButton.classList.remove("bx-x");
     menuButton.setAttribute("aria-expanded", "false");

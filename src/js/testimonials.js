@@ -1,4 +1,9 @@
-// Setup Alert Boxes
+/**
+ * @file src/js/testimonials.js
+ * @description This file contains functions to for Setting up Alerts.
+ */
+
+// Array of testimonial objects
 const alertBoxesData = [
   {
     url: `https://goo.gl/maps/zA9qfkUA6gyxb3Ff9`,

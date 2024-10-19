@@ -1,4 +1,8 @@
-// Setup WhyUs Counter Boxes
+/**
+ * @file src/js/whyus.js
+ * @description This file contains functions to for Setting up Counter Boxes.
+ */
+
 const counterBoxesData = [
   {
     id: "business-counter",

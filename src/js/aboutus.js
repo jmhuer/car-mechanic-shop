@@ -1,4 +1,16 @@
-// Setup Services Slides
+/**
+ * @file aboutus.js
+ * @description This file sets up the service slides for the "About Us" section of the page,
+ *  generating HTML content dynamically based on predefined service data.
+ */
+
+/**
+ * @constant {Array<Object>} serviceSlidesData
+ * @description An array of objects representing the data for each service slide.
+ * @property {string} icon - The HTML string for the service icon.
+ * @property {string} title - The title of the service.
+ * @property {string} body - The description of the service.
+ */
 const serviceSlidesData = [
   {
     icon: `<i class="bx bxs-car-mechanic"></i>`,
@@ -81,20 +93,38 @@ const serviceSlidesData = [
     body: `Is your check engine light on? Don't worry! Our skilled technicians specialize in check engine light diagnosis.`,
   },
 ];
-const slideBoxesHtml = serviceSlidesData.map((sl) => {
-  const body = sl.body ? sl.body : ``;
-  const icon = sl.icon ? sl.icon : ``;
-  const title = sl.title ? sl.title : ``;
-  const output =
-    `<li class="glide__slide h-auto">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="card-title text-primary fw-medium fs-5">${icon} ${title}</div>
-          ${body}
-        </div>
-      </div>
-    </li>`;
-  return output;
-});
+
+/**
+ * @function generateSlideBoxesHtml
+ * @description Generates HTML for each service slide based on the serviceSlidesData array.
+ * @param {Array<Object>} slidesData - The array of service slide data.
+ * @returns {Array<string>} An array of HTML strings for each service slide.
+ */
+const generateSlideBoxesHtml = (slidesData) => {
+  return slidesData.map((sl) => {
+    const body = sl.body ? sl.body : ``;
+    const icon = sl.icon ? sl.icon : ``;
+    const title = sl.title ? sl.title : ``;
+    const output =
+      `<li class="glide__slide h-auto">`+
+        `<div class="card h-100">`+
+          `<div class="card-body">`+
+            `<div class="card-title text-primary fw-medium fs-5">${icon} ${title}</div>`+
+            `${body}`+
+          `</div>`+
+        `</div>`+
+      `</li>`;
+    return output;
+  });
+};
+
+/**
+ * @constant {HTMLElement} slideBoxesElement
+ * @description The DOM element where the service slides will be inserted.
+ */
 const slideBoxesElement = document.getElementById("service-slides");
-if (slideBoxesElement) slideBoxesElement.innerHTML = slideBoxesHtml.join("");
+
+/**
+ * @description If the slideBoxesElement exists, set its innerHTML to the generated slide boxes HTML.
+ */
+if (slideBoxesElement) slideBoxesElement.innerHTML = generateSlideBoxesHtml(serviceSlidesData).join("");
