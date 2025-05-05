@@ -1,6 +1,6 @@
 .hero {
   padding: calc(2rem + 66px) 0 2rem;
-  background-image: url("/media/header-bg.webp");
+  background-image: url("/src/assets/media/header-bg.webp");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -31,6 +31,6 @@
 
 @media (max-width: 1024px) {
   .hero {
-    background-image: url("/media/header-bg-mobile.webp");
+    background-image: url("/src/assets/media/header-bg-mobile.webp");
   }
 }

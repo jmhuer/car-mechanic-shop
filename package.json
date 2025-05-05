@@ -8,25 +8,22 @@
     "dev": "vite",
     "build": "vite build --emptyOutDir",
     "test": "vite preview",
-    "bs-static": "sass --no-source-map ./src/scss/bs-dynamic.scss ./src/css/bs-compiled.css",
-    "push": "git add . && git commit -m \"patch fixes\" && npm version patch && git push",
-    "push-minor": "git add . && git commit -m \"minor updates\" npm version minor && git push",
-    "push-major": "git add . && git commit -m \"major updates\" && npm version major && git push"
+    "build-bootstrap": "sass --no-source-map ./src/scss/bs-dynamic.scss ./src/css/bs-compiled.css"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",
-    "autoprefixer": "^10.4.20",
-    "caniuse-lite": "^1.0.30001669",
+    "autoprefixer": "^10.4.21",
+    "caniuse-lite": "^1.0.30001717",
     "cssnano": "^6.1.2",
-    "postcss": "^8.4.47",
-    "sass": "^1.80.3",
-    "vite": "^5.4.9",
+    "postcss": "^8.5.3",
+    "sass": "^1.87.0",
+    "vite": "^5.4.19",
     "vite-plugin-minify": "^1.5.2",
-    "vite-plugin-webfont-dl": "^3.9.5"
+    "vite-plugin-webfont-dl": "^3.10.4"
   },
   "dependencies": {
-    "@glidejs/glide": "^3.6.2",
-    "bootstrap": "^5.3.3",
+    "@glidejs/glide": "^3.7.1",
+    "bootstrap": "^5.3.5",
     "boxicons": "^2.1.4"
   }
 }
