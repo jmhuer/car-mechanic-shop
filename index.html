@@ -1,83 +1,132 @@
-<!DOCTYPE html>
-<html>
+import { defineConfig } from "vite";
+import webfontDownload from "vite-plugin-webfont-dl";
+import { ViteMinifyPlugin } from "vite-plugin-minify";
+const IN_PRODUCTION = process.env.NODE_ENV === "production";
+const IN_DEVELOPMENT = process.env.NODE_ENV === "development";
+
+// Hide Preloader in all environments
+const disablePreloader = () => {
+  return {
+    name: "disable-preloader",
+    transformIndexHtml(html) {
+      // Insert style to hide preloader
+      return html.replace(
+        `<link rel="stylesheet" href="./src/css/preloader.min.css" type="text/css">`,
+        `<style>#loader-wrapper{display:none !important;}</style>
+        <link rel="stylesheet" href="./src/css/preloader.min.css" type="text/css">`
+      );
+    }
+  }
+}
+
+// Add script to force hide preloader
+const addPreloaderDisabler = () => {
+  return {
+    name: "add-preloader-disabler",
+    transformIndexHtml(html) {
+      return html.replace(
+        `<body itemtype="https://schema.org/WebPage" itemscope="itemscope" class="carclub">`,
+        `<body itemtype="https://schema.org/WebPage" itemscope="itemscope" class="carclub">
+        <script>
+          // Force hide preloader immediately
+          document.addEventListener('DOMContentLoaded', function() {
+            var loader = document.getElementById('loader-wrapper');
+            if (loader) loader.style.display = 'none';
+          });
+          // Also force hide with a timer
+          setTimeout(function() {
+            var loader = document.getElementById('loader-wrapper');
+            if (loader) loader.style.display = 'none';
+          }, 100);
+        </script>`
+      );
+    }
+  }
+}
+
+// Copy index to real-index
+const copyIndexToRealIndex = () => {
+  return {
+    name: "copy-index-to-real-index",
+    generateBundle(options, bundle) {
+      if (bundle['index.html']) {
+        bundle['real-index.html'] = { ...bundle['index.html'] };
+      }
+    }
+  }
+}
+
+// Create redirect index
+const createRedirectIndex = () => {
+  return {
+    name: "create-redirect-index",
+    generateBundle(options, bundle) {
+      bundle['index.html'] = {
+        type: 'asset',
+        fileName: 'index.html',
+        source: `<!DOCTYPE html>
+<html lang="en-US">
 <head>
-  <title>Site Debugging</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    pre { background: #f5f5f5; padding: 10px; overflow: auto; }
-  </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0;url=./real-index.html">
+  <title>Redirecting...</title>
+  <script>
+    window.location.href = "./real-index.html?preloader=disable";
+  </script>
 </head>
 <body>
-  <h1>Site Debugging Helper</h1>
-  
-  <h2>Console Output</h2>
-  <pre id="console-log"></pre>
-  
-  <h2>URL Info</h2>
-  <pre id="url-info"></pre>
-  
-  <h2>Browser Info</h2>
-  <pre id="browser-info"></pre>
-
-  <script>
-    // Capture console output
-    (function() {
-      const oldLog = console.log;
-      const consoleOutput = document.getElementById('console-log');
-      
-      console.log = function(...args) {
-        oldLog.apply(console, args);
-        consoleOutput.textContent += args.map(arg => 
-          typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg
-        ).join(' ') + '\n';
-      };
-      
-      // Log errors
-      window.addEventListener('error', function(e) {
-        console.log('ERROR:', e.message, 'at', e.filename, 'line', e.lineno);
-      });
-    })();
-    
-    // Display URL info
-    const urlInfo = document.getElementById('url-info');
-    urlInfo.textContent = `
-Current URL: ${window.location.href}
-Pathname: ${window.location.pathname}
-Base URL: ${document.baseURI}
-`;
-    
-    // Display browser info
-    const browserInfo = document.getElementById('browser-info');
-    browserInfo.textContent = `
-User Agent: ${navigator.userAgent}
-Platform: ${navigator.platform}
-Cookies Enabled: ${navigator.cookieEnabled}
-`;
-
-    // Test resource loading
-    function testResourceLoading() {
-      console.log('Testing resource loading...');
-      
-      const resources = [
-        './src/css/preloader.min.css',
-        './src/assets/media/header-bg-mobile.webp',
-        './src/index.js'
-      ];
-      
-      resources.forEach(resource => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function() {
-          console.log(`✅ Resource loaded: ${resource}`);
-        };
-        xhr.onerror = function() {
-          console.log(`❌ Resource failed to load: ${resource}`);
-        };
-        xhr.open('GET', resource);
-        xhr.send();
-      });
-    }
-    
-    testResourceLoading();
-  </script>
+  <p>Please wait, redirecting to the site...</p>
 </body>
-</html>
+</html>`
+      };
+    }
+  }
+}
+
+export default defineConfig({
+  plugins: [
+    // Disable preloader in all environments
+    disablePreloader(),
+    
+    // Add preloader disabler script
+    addPreloaderDisabler(),
+    
+    // In production, handle the redirect approach
+    IN_PRODUCTION && copyIndexToRealIndex(),
+    IN_PRODUCTION && createRedirectIndex(),
+
+    // Download Google Fonts for offline use
+    IN_PRODUCTION && webfontDownload(
+      [
+        "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap",
+      ]
+    ),
+
+    // Minify HTML
+    IN_PRODUCTION && ViteMinifyPlugin({}),
+  ],
+
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern',
+      }
+    }
+  },
+
+  // Use repository name as base
+  base: "/car-mechanic-shop/",
+  
+  server: {
+    port: 3000,
+  },
+
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      format: {
+        comments: false,
+      },
+    },
+  },
+});
